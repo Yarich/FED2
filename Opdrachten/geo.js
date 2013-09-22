@@ -22,46 +22,46 @@ var locatieRij = markerRij = [];
 
 var SPACE = SPACE || {}
 
+
 (function(){
 	// Test of GPS beschikbaar is (via geo.js) en vuur een event af
 	SPACE.gps = {
 		
-		init: function {
+		init: function() {
 			debugMessage("Controleer of GPS beschikbaar is...");
 			ET.addListener(GPS_AVAILABLE, startInterval);
 			ET.addListener(GPS_UNAVAILABLE, function(){debugMessage('GPS is niet beschikbaar.')});
-
- 
 		},
 		
-		startInterval: function {
+		startInterval: function() {
+			self = this;
 			(geo_position_js.init())?ET.fire(GPS_AVAILABLE):ET.fire(GPS_UNAVAILABLE);
 		    debugMessage("GPS is beschikbaar, vraag positie.");
 		    updatePosition();
-		    interval = self.setInterval(_update_position, REFRESH_RATE);
-		    ET.addListener(POSITION_UPDATED, checkLocations);
-		}
+		    interval = self.setInterval(updatePosition, REFRESH_RATE);
+		    ET.addListener(POSITION_UPDATED, self.checkLocations);
+		},
+		
 		// Vraag de huidige positie aan geo.js, stel een callback in voor het resultaat
-		updatePosition: function {
+		updatePosition: function() {
 		    intervalCounter++;
 		    geo_position_js.getCurrentPosition(setPosition, geoErrorHandler, {enableHighAccuracy:true});	
 		},
 		
 		// Callback functie voor het instellen van de huidige positie, vuurt een event af
-		setPosition: function {
+		setPosition: function() {
 			currentPosition = position;
 		    ET.fire("POSITION_UPDATED");
 		    debugMessage(intervalCounter+" positie lat:"+position.coords.latitude+" long:"+position.coords.longitude);		
 		},
 		
 		// Controleer de locaties en verwijs naar een andere pagina als we op een locatie zijn
-		checkLocations: function {
+		checkLocations: function() {
 
-}
 		},	
 		
 		// Bereken het verchil in meters tussen twee punten
-		calculateDistance: function {
+		calculateDistance: function() {
 			
 		}
 	
@@ -83,12 +83,12 @@ var SPACE = SPACE || {}
 		 */
 	SPACE.maps = {
 		
-		generateMap: function {
+		generateMap: function() {
 			
 		},
 	
 		// Update de positie van de gebruiker op de kaart		
-		updatePositie: function {
+		updatePositie: function() {
 			
 		}
 			
@@ -97,21 +97,21 @@ var SPACE = SPACE || {}
 	// FUNCTIES VOOR DEBUGGING
 	SPACE.debug = {
 	
-		geoErrorHandler: function {
+		geoErrorHandler: function() {
 			
 		},
 		
-		debugMessage: function {
+		debugMessage: function() {
 			
 		},
 		
-		setCustomDebugging: function {
+		setCustomDebugging: function() {
 			
 		}
 	};
 	
 	var helper {
-		isNumber: function {
+		isNumber: function() {
 			
 		},
 	}
