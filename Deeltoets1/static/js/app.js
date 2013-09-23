@@ -1,6 +1,9 @@
 var SCOREAPP = SCOREAPP || {};
 
+// Self-invoking anonymous function
 (function () {
+	// Local scope == function scope == lexical scope
+
 	// Router
 	SCOREAPP.router = {
 		init: function () {
@@ -85,6 +88,12 @@ var SCOREAPP = SCOREAPP || {};
 	    { score: "22", team1: "Boomsquad", team1Score: "14", team2: "Burning Snow", team2Score: "8"},
 	    { score: "23", team1: "Boomsquad", team1Score: "15", team2: "Burning Snow", team2Score: "8"}
 	    ]
+
+	    if(SCOREAP.game.items[SCOREAP.game.items.length-1].team1Score > SCOREAP.game.items[SCOREAP.game.items.length-1].team2Score){
+	    	// Team 1 is winnaar voeg * toe
+	    }else {
+	    	// Team 2 is winnaar voeg * toe
+	    }
 	};
 
 	SCOREAPP.ranking = {
