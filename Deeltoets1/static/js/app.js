@@ -1,4 +1,4 @@
-// Maak namespace aan zodat je geen conflicten krijgt met andere libraries
+// Maak namespace aan zodat je geen conflicten krijgt met andere libraries 
 var SCOREAPP = SCOREAPP || {};
 
 // Self-invoking anonymous function
@@ -126,21 +126,39 @@ var SCOREAPP = SCOREAPP || {};
 		schedule: function () {
 			// Zoek de plek (data-route) in de html, waar je de SCOREAPP.schedule data in gaat verwerken
 			// De [0] verwijst naar de eerste data-route schedule op de pagina (mochten er meerdere zijn)
-
+			// render SCOREAPP.schedule op deze plek
 			Transparency.render(qwery('[data-route=schedule')[0], SCOREAPP.schedule);
 			SCOREAPP.router.change();
 		},
 
 		//method
 		game: function () {
-			//directives[finalScore1][attribute] = function(params) {...}
+			// Zoek de plek (data-route) in de html, waar je de SCOREAPP.schedule data in gaat verwerken
+			// De [0] verwijst naar de eerste data-route schedule op de pagina (mochten er meerdere zijn)
+			// render SCOREAPP.schedule op deze plek
 			Transparency.render(qwery('[data-route=game')[0], SCOREAPP.game);
 			SCOREAPP.router.change();
 		},
 
 		//method
 		ranking: function () {
-			Transparency.render(qwery('[data-route=ranking')[0], SCOREAPP.ranking);
+			var directives;
+			directives = {
+				// Ga in Items
+				items: {
+					// Voeg PlusMin toe aan items
+				 	PlusMin: {
+					    text: function(params) {
+					    	// this is bound to the current model object
+					      return  (this.Pw - this.Pl);
+					    }
+					}
+				}
+			}
+			// Zoek de plek (data-route) in de html, waar je de SCOREAPP.schedule data in gaat verwerken
+			// De [0] verwijst naar de eerste data-route schedule op de pagina (mochten er meerdere zijn)
+			// render SCOREAPP.schedule en directives op deze plek
+			Transparency.render(qwery('[data-route=ranking')[0], SCOREAPP.ranking, directives);
 			SCOREAPP.router.change();
 		}
 	}
