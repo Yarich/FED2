@@ -36,8 +36,10 @@ var SCOREAPP = SCOREAPP || {};
             // Laat actieve sectie zien en verberg te andere
             if (section) {
             	for (var i=0; i < sections.length; i++){
+            		// Zet de sectie die actief is op non-actief
             		sections[i].classList.remove('active');
             	}
+            	// Maak de sectie waarop geklikt is actief
             	section.classList.add('active');
             }
 
@@ -124,12 +126,14 @@ var SCOREAPP = SCOREAPP || {};
 		schedule: function () {
 			// Zoek de plek (data-route) in de html, waar je de SCOREAPP.schedule data in gaat verwerken
 			// De [0] verwijst naar de eerste data-route schedule op de pagina (mochten er meerdere zijn)
+
 			Transparency.render(qwery('[data-route=schedule')[0], SCOREAPP.schedule);
 			SCOREAPP.router.change();
 		},
 
 		//method
 		game: function () {
+			//directives[finalScore1][attribute] = function(params) {...}
 			Transparency.render(qwery('[data-route=game')[0], SCOREAPP.game);
 			SCOREAPP.router.change();
 		},
