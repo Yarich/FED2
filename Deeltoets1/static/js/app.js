@@ -1,3 +1,4 @@
+// Maak namespace aan zodat je geen conflicten krijgt met andere libraries
 var SCOREAPP = SCOREAPP || {};
 
 // Self-invoking anonymous function
@@ -5,10 +6,12 @@ var SCOREAPP = SCOREAPP || {};
 	// Local scope == function scope == lexical scope
 
 	// Router
+	// Routie plugin helpt bij het navigeren tussen verschillende "pagina's" op één pagina
 	SCOREAPP.router = {
 		init: function () {
 	  		routie({
 			    '/schedule': function() {
+			    	//namescpaeobject.object.method
 			    	SCOREAPP.page.schedule();
 				},
 			    '/game': function() {
@@ -89,11 +92,11 @@ var SCOREAPP = SCOREAPP || {};
 	    { score: "23", team1: "Boomsquad", team1Score: "15", team2: "Burning Snow", team2Score: "8"}
 	    ]
 
-	    if(SCOREAP.game.items[SCOREAP.game.items.length-1].team1Score > SCOREAP.game.items[SCOREAP.game.items.length-1].team2Score){
+	    //if(SCOREAP.game.items[SCOREAP.game.items.length-1].team1Score > SCOREAP.game.items[SCOREAP.game.items.length-1].team2Score){
 	    	// Team 1 is winnaar voeg * toe
-	    }else {
+	    //}else {
 	    	// Team 2 is winnaar voeg * toe
-	    }
+	    //}
 	};
 
 	SCOREAPP.ranking = {
@@ -108,6 +111,7 @@ var SCOREAPP = SCOREAPP || {};
 	
 	// Controller Init
 	SCOREAPP.controller = {
+		// Initialize; Dit is het eerste wat je wilt uitvoeren
 		init: function () {
 			// Initialize router
 			SCOREAPP.router.init();
@@ -116,24 +120,30 @@ var SCOREAPP = SCOREAPP || {};
 
 	// Pages
 	SCOREAPP.page = {
+		//method
 		schedule: function () {
+			// Zoek de plek (data-route) in de html, waar je de SCOREAPP.schedule data in gaat verwerken
+			// De [0] verwijst naar de eerste data-route schedule op de pagina (mochten er meerdere zijn)
 			Transparency.render(qwery('[data-route=schedule')[0], SCOREAPP.schedule);
 			SCOREAPP.router.change();
 		},
 
+		//method
 		game: function () {
 			Transparency.render(qwery('[data-route=game')[0], SCOREAPP.game);
 			SCOREAPP.router.change();
 		},
 
+		//method
 		ranking: function () {
 			Transparency.render(qwery('[data-route=ranking')[0], SCOREAPP.ranking);
 			SCOREAPP.router.change();
 		}
 	}
 	// DOM ready
+	// Gebruik om de app te initialiseren wanneer DOM = ready
 	domready(function () {
-		// Kickstart SCOREAPPlication
+		// Zorg ervoor dat de app gaat starten
 		SCOREAPP.controller.init();
 	});
 	
