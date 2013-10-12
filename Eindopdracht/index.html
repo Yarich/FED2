@@ -14,8 +14,9 @@
 				<li><a href="#/schedule">Schedule</a></li>
 				<li><a href="#/game">Game</a></li>
 				<li><a href="#/ranking">Ranking</a></li>
-				<li><a href="#/movies">Movies</a></li>
+				<li><a href="#/games">Games</a></li>
 				<li><a href="#/poules">Poules</a></li>
+				<li><a href="#/gameTEST">gameTEST</a></li>
 		    </ul>
 		</nav>
 	</header>
@@ -116,44 +117,77 @@
 			</table>
 		</section>
 
-		<section data-route="movies">
-			<header>
-				<h1 data-bind="title"></h1>
-			</header>
-			<table>
-				<tr>
-					<td data-bind="id"></td>
-					<td data-bind="title"></td>
-					<td data-bind="description"></td>
-					<td data-bind="release_date"></td>
-					<td data-bind=""></td>
-				</tr>
-			</table>	
+		<section data-route="games">
+			<section data-bind="objects">
+
+				<table>
+					<thead>
+						<tr>
+							<th>Team</th>
+							<th>Score</th>
+							<th>Team</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td data-bind="team_1"><span data-bind="name"></span></td>
+							<td><span data-bind="team_1_score"></span> - <span data-bind="team_2_score"></span></td>
+							<td data-bind="team_2"><span data-bind="name"></span></td>
+						</tr>
+					</tbody>
+				</table>
+			</section>	
 		</section>
 
 		<section data-route="poules">
-			    <header>
-                    <h1>Poule <span data-bind="name"></h1>
-                </header>
+			<section data-bind="objects">
+				<h1><a class="poolid" data-bind="poolidurl">Pool <span data-bind="name"></span></a></h1>
+				<table>
+					<thead>
+						<tr>
+							<th>Team</th>
+							<th>W</th>
+							<th>L</th>
+							<th>Points allowed</th>
+							<th>Points scored</th>
+							<th>+/-</th>
+						</tr>
+					</thead>
+					<tbody data-bind="standings">
+						<tr>
+							<td data-bind="team"><span data-bind="name"></span></td>
+							<td data-bind="wins"></td>
+							<td data-bind="losses"></td>
+							<td data-bind="points_allowed"></td>
+							<td data-bind="points_scored"></td>
+							<td data-bind="plus_minus"></td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
+		</section>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th data-bind="name"></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td data-bind="date"></td>
-                            <td data-bind="team1"></td>
-                            <td><span data-bind="team1Score"></span> - <span data-bind="team2Score"></span></td>
-                            <td data-bind="team2"></td>
-                        </tr>
-                    </tbody>
-                </table>
+		<section data-route="gameTEST">
+			<section data-bind="objects">
+
+				<table>
+					<thead>
+						<tr>
+							<th>Team</th>
+							<th>Score</th>
+							<th>Team</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td data-bind="team_1"><span data-bind="name"></span></td>
+							<td><span data-bind="team_1_score"></span> - <span data-bind="team_2_score"></span></td>
+							<td data-bind="team_2"><span data-bind="name"></span></td>
+							<td>
+						</tr>
+					</tbody>
+				</table>
+			</section>	
 		</section>
 	</article>
 

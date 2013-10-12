@@ -1,3 +1,7 @@
+// POST FABION TIP var e = document.getElementById("ddlViewBy");
+// var strUser = e.options[e.selectedIndex].value;
+// http://stackoverflow.com/questions/1085801/how-to-get-the-selected-value-of-dropdownlist-using-javascript
+
 // Maak namespace aan zodat je geen conflicten krijgt met andere libraries 
 var SCOREAPP = SCOREAPP || {};
 
@@ -29,6 +33,15 @@ var SCOREAPP = SCOREAPP || {};
 
 			    '/poules': function(){
 			    	SCOREAPP.page.poules();
+			    },
+
+			    '/games': function(){
+			    	SCOREAPP.page.games();
+			    },
+
+
+			    '/gameTEST': function(){
+			    	SCOREAPP.page.gameTEST();
 			    },
 
 			    '*': function() {
@@ -124,9 +137,31 @@ var SCOREAPP = SCOREAPP || {};
 	SCOREAPP.movies = {
 
 	};
-	
+
 	SCOREAPP.poules = {
 
+	};
+	
+	SCOREAPP.pools = {
+		pool:[
+			{name:"", 
+				team:[
+					{name:"" }
+			]
+		}]
+	};
+
+
+	SCOREAPP.sortGames = {
+		objects: [{
+
+		}]
+	};
+
+	SCOREAPP.gamesTEST = {
+		objects: [{
+
+		}]
 	};
 
 	// Controller Init
@@ -181,7 +216,7 @@ var SCOREAPP = SCOREAPP || {};
 		},
 
 		//method
-		movies: function () {
+		/*movies: function () {
 			promise.get('http://dennistel.nl/movies').then(function(error, text, xhr) {
 			    if (error) {
 		    	    alert('Error ' + xhr.status);
@@ -195,30 +230,21 @@ var SCOREAPP = SCOREAPP || {};
 			});
 
 			SCOREAPP.router.change();
-		},
+		},*/
 
-				//method
+		//method
 		poules: function () {
-			promise.get('https://api.leaguevine.com/v1/pools/?tournament_id=19389&access_token=2d42fe6e12').then(function(error, text, xhr) {
+			promise.get('https://api.leaguevine.com/v1/pools/?tournament_id=19389&order_by=%5Bname%5D&access_token=bf1541681d').then(function(error, text, xhr) {
 			    if (error) {
 		    	    alert('Error ' + xhr.status);
 		        	return;
 		    	}
+		    	
 		    	// Omdat je een string krijgt moet je hem Parsen naar Javascript objecten om uit te kunnen lezen
-		    	console.log(JSON.parse(text));
-		    	/* WERKT NIET 
+		    	//console.log(JSON.parse(text));
+		    	
 		    	var result = JSON.parse(text);
-		    	console.log(result.objects[0].standings[1].name); 
-
-
-		    	//The callback function that will be executed once data is received from the server
-				var callback = function (text) {
-				    var johnny = JSON.parse(text);
-				    //Now, the variable 'johnny' is an object that contains all of the properties 
-				    //from the above code snippet (the json example)
-				    alert(johnny.objects[0].standings[1].name); //Will alert 'John Smith'
-				};*/
-
+		    	console.log(result);
 
 		    	// SCOREAPP.poules zijn de objecten uit je parse
 		    	SCOREAPP.poules = JSON.parse(text);
@@ -227,7 +253,85 @@ var SCOREAPP = SCOREAPP || {};
 			});
 
 			SCOREAPP.router.change();
+		},
+
+		//method
+		games: function () {
+			promise.get('https://api.leaguevine.com/v1/game_scores/?tournament_id=19389&order_by=%5B-time_last_updated%5D&limit=45&access_token=bf1541681d').then(function(error, text, xhr) {
+			    if (error) {
+		    	    alert('Error ' + xhr.status);
+		        	return;
+		    	}
+		    	// Omdat je een string krijgt moet je hem Parsen naar Javascript objecten om uit te kunnen lezen
+		    	console.log(JSON.parse(text));
+		    	var result = JSON.parse(text);
+		    	// SCOREAPP.movies zijn de objecten uit je parse
+		    	//SCOREAPP.games = JSON.parse(text);
+
+				var filterGames = new Array();
+                for (var i in result.objects) {
+                    // zet alle games in een array om een game maar 1keer terug te krijgen. 
+                    // Je krijgt natuurlijk meerdere, maar je kan maar 1 met dezelfde naam 
+                    // hebben dus hij overschrijft hem steeds; de laatste (de nieuwste) blijf over
+                    filterGames[result.objects[i].game_id] = result.objects[i];
+                }
+
+                // 	Zet overgebleven games terug in een object
+                var game_count = 0;
+                // Vervanging for each
+                for (var game_id in filterGames) {
+                	// Game count is zodat de array van het object netjes opbouwt
+                	// Als je game id daar zet loopt browser vast
+                    SCOREAPP.sortGames.objects[game_count] = filterGames[game_id];
+                    game_count++;
+                }
+
+                console.log(SCOREAPP.sortGames);
+
+		    	Transparency.render(qwery('[data-route=games')[0], SCOREAPP.sortGames);
+			});
+
+			SCOREAPP.router.change();
+		},
+
+				//method
+		gameTEST: function () {
+			promise.get('https://api.leaguevine.com/v1/game_scores/?tournament_id=19389&order_by=%5B-time_last_updated%5D&limit=45&access_token=bf1541681d').then(function(error, text, xhr) {
+			    if (error) {
+		    	    alert('Error ' + xhr.status);
+		        	return;
+		    	}
+		    	// Omdat je een string krijgt moet je hem Parsen naar Javascript objecten om uit te kunnen lezen
+		    	console.log(JSON.parse(text));
+		    	// SCOREAPP.movies zijn de objecten uit je parse
+		    	var result = JSON.parse(text);
+
+				var filterGames = new Array();
+                for (var i in result.objects) {
+                    // zet alle games in een array om een game maar 1keer terug te krijgen. 
+                    // Je krijgt natuurlijk meerdere, maar je kan maar 1 met dezelfde naam 
+                    // hebben dus hij overschrijft hem steeds; de laatste (de nieuwste) blijf over
+                    filterGames[result.objects[i].game_id] = result.objects[i];
+                }
+
+                // 	Zet overgebleven games terug in een object
+                var game_count = 0;
+                // Vervanging for each
+                for (var game_id in filterGames) {
+                	// Game count is zodat de array van het object netjes opbouwt
+                	// Als je game id daar zet loopt browser vast
+                    SCOREAPP.gamesTEST.objects[game_count] = filterGames[game_id];
+                    game_count++;
+                }
+
+                console.log(SCOREAPP.gamesTEST);
+
+		    	Transparency.render(qwery('[data-route=gameTEST')[0], SCOREAPP.gamesTEST);
+			});
+
+			SCOREAPP.router.change();
 		}
+
 	}
 	// DOM ready
 	// Gebruik om de app te initialiseren wanneer DOM = ready
