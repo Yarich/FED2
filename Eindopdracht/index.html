@@ -43,51 +43,51 @@
 		<div id="loader" class=""> <p class="loadericon"></p><span> Loading data..</span></div>
 	<!-- SCHEDULE PAGE -->
 		<section id="schedulePage" data-route="schedule">
-				<h1>Schedule</h1>
-				<section>
-						<table class="table table-hover hidden-xs ">
-							<thead>
-								<tr>
-									<th class="col-md-1 col-xs-1 hidden-xs">Pool</th>
-									<th class="col-md-1 col-xs-1 hidden-xs">Date</th>
-									<th class="col-md-4 col-xs-4">Team</th>
-									<th class="col-md-2 col-xs-2">Score</th>
-									<th class="col-md-4 col-xs-4">Team</th>
-								</tr>
-							</thead>
-							<tbody data-bind="objects">
-								<tr>
-									<td class="col-md-1 col-xs-1 hidden-xs" data-bind="pool"><span data-bind="name"></span></td>
-									<td class="col-md-1 col-xs-1 hidden-xs"></td>
-									<td class="col-md-4 col-xs-4" data-bind="team_1"><span data-bind="name"></span></td>
-									<td class="col-md-1 col-xs-1"><span data-bind="team_1_score"></span> - <span data-bind="team_2_score"></span></td>
-									<td class="col-md-4 col-xs-4" data-bind="team_2"><span data-bind="name"></span></td>
-									<td class="col-md-1 col-xs-1"><a class="btn btn-default" data-bind="thisID">Update score</a></td>
-								</tr>
-							</tbody>
-						</table>
+			<h1>Schedule</h1>
+			<section>
+				<table class="table table-hover hidden-xs ">
+					<thead>
+						<tr>
+							<th class="col-md-1 col-xs-1 hidden-xs">Pool</th>
+							<th class="col-md-1 col-xs-1 hidden-xs">Date</th>
+							<th class="col-md-4 col-xs-4">Team</th>
+							<th class="col-md-2 col-xs-2">Score</th>
+							<th class="col-md-4 col-xs-4">Team</th>
+						</tr>
+					</thead>
+					<tbody data-bind="objects">
+						<tr>
+							<td class="col-md-1 col-xs-1 hidden-xs" data-bind="pool"><span data-bind="name"></span></td>
+							<td class="col-md-1 col-xs-1 hidden-xs"></td>
+							<td class="col-md-4 col-xs-4" data-bind="team_1"><span data-bind="name"></span></td>
+							<td class="col-md-1 col-xs-1"><span data-bind="team_1_score"></span> - <span data-bind="team_2_score"></span></td>
+							<td class="col-md-4 col-xs-4" data-bind="team_2"><span data-bind="name"></span></td>
+							<td class="col-md-1 col-xs-1"><a class="btn btn-default" data-bind="thisID">Update score</a></td>
+						</tr>
+					</tbody>
+				</table>
 
-						<table class="table table-hover hidden-sm hidden-md hidden-lg">
-							<thead>
-								<tr>
-									<th class="col-md-10 col-xs-10">Team</th>
-									<th class="col-md-2 col-xs-2">Score</th>
-								</tr>
-							</thead>
-							<tbody data-bind="objects">
-								<tr id="first">
-									<td class="col-md-10 col-xs-10" data-bind="team_1"><span data-bind="name"></span></td>
-									<td class="col-md-2 col-xs-2"><span data-bind="team_1_score"></span></td>
-								</tr>
-								<tr id="color">
-									<td class="col-md-10 col-xs-10" data-bind="team_2"><span data-bind="name"></span></td>
-									<td class="col-md-2 col-xs-2"><span data-bind="team_2_score"></span></td>
-								</tr>
-								<tr id="btnColor">
-									<td><a class="btn btn-default" data-bind="thisID">Update score</a></td>
-								</tr>
-							</tbody>
-						</table>
+				<table class="table table-hover hidden-sm hidden-md hidden-lg">
+					<thead>
+						<tr>
+							<th class="col-md-10 col-xs-10">Team</th>
+							<th class="col-md-2 col-xs-2">Score</th>
+						</tr>
+					</thead>
+					<tbody data-bind="objects">
+						<tr id="first">
+							<td class="col-md-10 col-xs-10" data-bind="team_1"><span data-bind="name"></span></td>
+							<td class="col-md-2 col-xs-2"><span data-bind="team_1_score"></span></td>
+						</tr>
+						<tr id="color">
+							<td class="col-md-10 col-xs-10" data-bind="team_2"><span data-bind="name"></span></td>
+							<td class="col-md-2 col-xs-2"><span data-bind="team_2_score"></span></td>
+						</tr>
+						<tr id="btnColor">
+							<td><a class="btn btn-default" data-bind="thisID">Update score</a></td>
+						</tr>
+					</tbody>
+				</table>
 			</section>
 		</section>
 
