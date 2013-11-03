@@ -292,9 +292,8 @@ var SCOREAPP = SCOREAPP || {};
 
                 // De staat van het xhr verandert
 				xhr.onreadystatechange = function() {
-					console.log(xhr.status);
                     // Als xhr readyState == 4 (Succes) doe dan het volgende
-				    if (xhr.readyState==4 && xhr.status==201){
+				    if (xhr.readyState==4){
                         // Zoek een html element met het id status
 				        var statusdiv = document.getElementById("status");
 				        console.log(statusdiv);
@@ -314,10 +313,7 @@ var SCOREAPP = SCOREAPP || {};
 						statusdiv.className = "hide";
 					},8000);
 
-				    //alert the user that a response now exists in the responseTest property.
-				   console.log(xhr.responseText);
-				   // And to view in firebug
-				   console.log('xhr', xhr);
+
 				  } else {  
 				      console.log("Error", xhr.statusText);  
 				    }  
