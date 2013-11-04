@@ -50,6 +50,7 @@ var SCOREAPP = SCOREAPP || {};
 			    '*': function() {
 			    	//home page of iets dergelijks
 			    	//SCOREAPP.page.ranking();
+                    SCOREAPP.page.schedule();
 			    }
 			});
 		},
@@ -60,15 +61,15 @@ var SCOREAPP = SCOREAPP || {};
 			console.log("router.change");
 
 
-			document.getElementById('URLlink').className = "";
+			//document.getElementById('URLlink').className = "";
 			document.getElementById('URLschedule').className = "";
 			document.getElementById('URLranking').className = "";
  
             console.log(page);
             switch (page){
-            	case 'link':
-             		document.getElementById('URLlink').className = "activelink";
-            	break;
+            	// case 'link':
+             // 		document.getElementById('URLlink').className = "activelink";
+            	// break;
             	case 'schedule':
             		document.getElementById('URLschedule').className = "activelink";
             		break;
@@ -142,7 +143,7 @@ var SCOREAPP = SCOREAPP || {};
 		    	Transparency.render(qwery('[data-route=ranking')[0], SCOREAPP.ranking);
 		  
 		    	// Voeg class Loaded toe
-            	d.className =  "loaded"
+            	d.className =  "loaded";
 			});
 
             // Gestures
@@ -182,16 +183,29 @@ var SCOREAPP = SCOREAPP || {};
                 				//console.log("params: " + params)
                 				return "#/game/" + this.id;
                 			}
-                		}
+                		},
+
+                         date: {
+                            text: function(params){
+                                var startTime = new Date(this.start_time);
+                                var day = startTime.getDate();
+                                var month = startTime.getMonth() + 1;
+                                var year = startTime.getFullYear();
+
+                                var date = day + "/" + month + "/" + year;
+                                return date;
+                            }
+                        }
                 	}
                 }
 
+
                 SCOREAPP.schedule = result;
-                console.log('SCOREAPP.schedule +' , SCOREAPP.schedule);
+                console.log('Renderen voltooid');
 
 		    	Transparency.render(qwery('[data-route=schedule')[0], SCOREAPP.schedule, directives);
 		    	// Voeg class Loaded toe
-            	d.className =  "loaded"
+            	d.className =  "loaded";
 			});
 
             // Gestures to navigate
@@ -298,7 +312,7 @@ var SCOREAPP = SCOREAPP || {};
 				        var statusdiv = document.getElementById("status");
 				        console.log(statusdiv);
                         // Voeg deze tekst toe aan het variabele statusdiv oftewel div Status
-					    statusdiv.innerHTML = "UPDATE TEXT";
+					    statusdiv.innerHTML = "Score succesvol doorgevoerd";
                         // Haal className weg
 					    statusdiv.className = "";
                         // Update data meteen met de variabeles die gepost worden
@@ -311,18 +325,18 @@ var SCOREAPP = SCOREAPP || {};
                         // Na timeout verwijder pop up box voeg class hide toe
 					setTimeout(function(){
 						statusdiv.className = "hide";
-					},8000);
+					},15000);
 
 
 				  } else {  
-				      console.log("Error", xhr.statusText);  
+				      //console.log("Error", xhr.statusText);  
 				    }  
 				 }
 
 				// Send request (with data as a json string)
 				xhr.send(postData);
 				// Maak de sectie waarop geklikt is actief
-          		  d.className =  "loaded"
+          		  d.className =  "loaded";
           		return false;
     		}
 

@@ -32,7 +32,7 @@
 	        </section>
 	        <nav class="navbar-collapse navbar-right">
 		        <ul class="nav navbar-nav">
-		            <li id="URLlink"><a href="#">Link</a></li>
+		          <!--   <li id="URLlink"><a href="#">Link</a></li> -->
 					<li id="URLschedule"><a href="#/schedule">Schedule</a></li>
 					<li id="URLranking"><a href="#/ranking">Ranking</a></li>
 				</ul>
@@ -40,7 +40,7 @@
     </header>
 	
 	<article id="content" class="col">
-		<div id="loader" class=""> <p class="loadericon"></p><span> Loading data..</span></div>
+		<div id="loader" class=""> <p class="loadericon"></p><span> Loading latest data..</span></div>
 	<!-- SCHEDULE PAGE -->
 		<section id="schedulePage" data-route="schedule">
 			<h1>Schedule</h1>
@@ -58,7 +58,7 @@
 					<tbody data-bind="objects">
 						<tr>
 							<td class="col-md-1 col-xs-1 hidden-xs" data-bind="pool"><span data-bind="name"></span></td>
-							<td class="col-md-1 col-xs-1 hidden-xs"></td>
+							<td class="col-md-1 col-xs-1 hidden-xs" data-bind="date"></td>
 							<td class="col-md-4 col-xs-4" data-bind="team_1"><span data-bind="name"></span></td>
 							<td class="col-md-1 col-xs-1"><span data-bind="team_1_score"></span> - <span data-bind="team_2_score"></span></td>
 							<td class="col-md-4 col-xs-4" data-bind="team_2"><span data-bind="name"></span></td>
@@ -71,17 +71,20 @@
 					<thead>
 						<tr>
 							<th class="col-md-10 col-xs-10">Team</th>
-							<th class="col-md-2 col-xs-2">Score</th>
+							<th class="col-md-1 col-xs-1">Score</th>
 						</tr>
 					</thead>
 					<tbody data-bind="objects">
+						<tr>
+						 <td><b data-bind="date"></b></td>
+						</tr>
 						<tr id="first">
 							<td class="col-md-10 col-xs-10" data-bind="team_1"><span data-bind="name"></span></td>
-							<td class="col-md-2 col-xs-2"><span data-bind="team_1_score"></span></td>
+							<td class="col-md-1 col-xs-1"><span data-bind="team_1_score"></span></td>
 						</tr>
 						<tr id="color">
 							<td class="col-md-10 col-xs-10" data-bind="team_2"><span data-bind="name"></span></td>
-							<td class="col-md-2 col-xs-2"><span data-bind="team_2_score"></span></td>
+							<td class="col-md-1 col-xs-1"><span data-bind="team_2_score"></span></td>
 						</tr>
 						<tr id="btnColor">
 							<td><a class="btn btn-default" data-bind="thisID">Update score</a></td>
