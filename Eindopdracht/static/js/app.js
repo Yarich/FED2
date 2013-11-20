@@ -1,375 +1,378 @@
-// Maak namespace aan zodat je geen conflicten krijgt met andere libraries 
+// Prevent conflicts with other JS files
 var SCOREAPP = SCOREAPP || {};
 
 // Self-invoking anonymous function
 (function () {
-	// Local scope == function scope == lexical scope
-	// Zorgt ervoor dat je script in EMASCRIPT 5 draait	
-	"use strict";
+    // Make sure EMASCRIPT 5 is used
+    "use strict";
 
-	// SETTINGS
-	SCOREAPP.settings = {
-	//	scheduleURL:
-		gameURL: 'https://api.leaguevine.com/v1/games',
-		rankingURL: 'https://api.leaguevine.com/v1/pools/?tournament_id=19389&order_by=%5Bname%5D&access_token=bf1541681d'
+    // SETTINGS
+    SCOREAPP.settings = {
+    //  scheduleURL:
+        gameURL: 'https://api.leaguevine.com/v1/games',
+        rankingURL: 'https://api.leaguevine.com/v1/pools/?tournament_id=19389&order_by=%5Bname%5D&access_token=bf1541681d'
 
-	},
+    },
 
-	// Controller Init
-	SCOREAPP.controller = {
+    // Controller Init
+    SCOREAPP.controller = {
 
-		// Initialize; Dit is het eerste wat je wilt uitvoeren
-		init: function () {
-			console.log("1. CONTROLLER")
-			// Initialize router
-			SCOREAPP.router.init();
-		}
-	};
+        // Initialize
+        init: function () {
+            console.log("1. CONTROLLER")
+            // Initialize router
+            SCOREAPP.router.init();
+        }
+    };
 
-	// Router
-	// Routie plugin helpt bij het navigeren tussen verschillende "pagina's" op één pagina
-	SCOREAPP.router = {
+    // Router
+    SCOREAPP.router = {
 
-		init: function () {
-			console.log("2. ROUTER"),
+        init: function () {
+            console.log("2. ROUTER"),
 
-	  		routie({
+            routie({
 
-			    '/ranking': function(){
-			    	SCOREAPP.page.ranking();
-			    },
+                '/ranking': function(){
+                    SCOREAPP.page.ranking();
+                },
 
-			    '/schedule': function(){
-			    	SCOREAPP.page.schedule();
-			    },
-
-			    '/game/:id': function(id){
-			    	SCOREAPP.page.game(id);
-			    },
-
-			    '*': function() {
-			    	//home page of iets dergelijks
-			    	//SCOREAPP.page.ranking();
+                '/schedule': function(){
                     SCOREAPP.page.schedule();
-			    }
-			});
-		},
+                },
 
-		// Zorg ervoor dat de pagina's wisselen. 
-		// Change de sectie die is aangegeven.
-		change: function (page) {
-			console.log("router.change");
+                '/game/:id': function(id){
+                    SCOREAPP.page.game(id);
+                },
 
+                '*': function() {
+                    SCOREAPP.page.schedule();
+                }
+            });
+        },
 
-			//document.getElementById('URLlink').className = "";
-			document.getElementById('URLschedule').className = "";
-			document.getElementById('URLranking').className = "";
+        // Make pages change
+        // Change selected section
+        change: function (page) {
+            //console.log("Router Change");
+
+            console.log("Activate Loader");
+            SCOREAPP.loader.show();
+
+            //document.getElementById('URLlink').className = "";
+            document.getElementById('URLschedule').className = "";
+            document.getElementById('URLranking').className = "";
  
             console.log(page);
+            
             switch (page){
-            	// case 'link':
-             // 		document.getElementById('URLlink').className = "activelink";
-            	// break;
-            	case 'schedule':
-            		document.getElementById('URLschedule').className = "activelink";
-            		break;
+                case 'schedule':
+                    document.getElementById('URLschedule').className = "activelink";
+                    break;
 
-           		case 'ranking':
-            		document.getElementById('URLranking').className = "activelink";
-            		break;
+                case 'ranking':
+                    document.getElementById('URLranking').className = "activelink";
+                    break;
             }
 
-			// Var route = section naam
+            // Var route = section name
             var route = page            
-            // Zoek alle secties
+            // Search all sections
             var    sections = qwery('section[data-route]')
-            // Data route + sectie naam = de locatie van de pagina
+            // Data route + section name = page location
             var   section = qwery('[data-route=' + route + ']')[0];
 
-            // Laat actieve sectie zien en verberg te andere
+            // Show active section, hide all other sections
             if (section) {
-            	for (var i=0; i < sections.length; i++){
-            		// Zet de sectie die actief is op non-actief
-            		sections[i].classList.remove('active');
-            	}
-            	// Maak de sectie waarop geklikt is actief
-            	section.classList.add('active');
+                for (var i=0; i < sections.length; i++){
+                    // Change the active section to non-active
+                    sections[i].classList.remove('active');
+                }
+                // Make clicked section active
+                section.classList.add('active');
             }
 
             // Default route ( FALLBACK )
             if (!route) {
-            	sections[0].classList.add('active');
+                sections[0].classList.add('active');
             }
         }
-	};
+    };
 
-	// Data objecten
+    // Data objects
 
-	SCOREAPP.ranking = {
+    SCOREAPP.ranking = {
 
-	};
+    };
 
 
-	SCOREAPP.schedule = {
+    SCOREAPP.schedule = {
 
-	};
+    };
 
-	SCOREAPP.game = {
+    SCOREAPP.game = {
 
-	};
+    };
 
-	// Pages
-	SCOREAPP.page = {
-		//method
-		ranking: function () {
-			console.log("3. PAGE RENDEREN ranking")
+    // Pages
+    SCOREAPP.page = {
+        //method
+        ranking: function () {
+            console.log("3. Render page ranking")
 
-            // Zoek html element met id Loader
-			var d = document.getElementById("loader");
-            // Verwijder class loaded
-			d.classList.remove('loaded');
             // API request
-			promise.get(SCOREAPP.settings.rankingURL).then(function(error, text, xhr) {
-			    if (error) {
-		    	    alert('Error ' + xhr.status);
-		        	return;
-		    	}
-		    	// Parse result naar JSON object
-		    	var result = JSON.parse(text);
-		    	console.log(result);
+            promise.get(SCOREAPP.settings.rankingURL).then(function(error, text, xhr) {
+                if (error) {
+                    alert('Error ' + xhr.status);
+                    return;
+                }
+                // Parse result naar JSON object
+                var result = JSON.parse(text);
+                console.log(result);
 
-		    	// SCOREAPP.poules zijn de objecten uit je parse
-		    	SCOREAPP.ranking = JSON.parse(text);
-		    	Transparency.render(qwery('[data-route=ranking')[0], SCOREAPP.ranking);
-		  
-		    	// Voeg class Loaded toe
-            	d.className =  "loaded";
-			});
+                // SCOREAPP.poules zijn de objecten uit je parse
+                SCOREAPP.ranking = JSON.parse(text);
+                Transparency.render(qwery('[data-route=ranking')[0], SCOREAPP.ranking);
+          
+                /**** END LOADER ****/
+                console.log("Hide Loader")
+                SCOREAPP.loader.hide();
+            });
 
             // Gestures
-			var elementPage = document.getElementById('rankingPage');
-		    // Hammer(elementPage).on("swipeleft", function(event) {
-		    //     routie('/home');
-		    // });
+            var elementPage = document.getElementById('rankingPage');
+            // Hammer(elementPage).on("swipeleft", function(event) {
+            //     routie('/home');
+            // });
             // Swipe right and route to schedule
-		    Hammer(elementPage).on("swiperight", function(event) {
-		        routie('/schedule');
-		    });
+            Hammer(elementPage).on("swiperight", function(event) {
+                routie('/schedule');
+            });
 
             SCOREAPP.router.change("ranking");
-		},
+        },
 
-		//method
-		schedule: function () {
-			console.log("3. PAGE RENDEREN  schedule")
-
-            // Zoek een element met het ID Loader
-			var d = document.getElementById("loader");
-            // Verwijder class Loaded
-			d.classList.remove('loaded');
+        //method
+        schedule: function () {
+            console.log("3. Render page schedule")
 
             // API request
-			promise.get('https://api.leaguevine.com/v1/games/?tournament_id=19389&pool_id=19219&access_token=16efeb5be0').then(function(error, text, xhr) {
-				// Omdat je een string krijgt moet je hem Parsen naar Javascript objecten om uit te kunnen lezen
-		    	var result = JSON.parse(text);
+            promise.get('https://api.leaguevine.com/v1/games/?tournament_id=19389&pool_id=19219&access_token=16efeb5be0').then(function(error, text, xhr) {
+                // Parse JSON string to JSON object
+                var result = JSON.parse(text);
 
                 var directives = {
-                    // Ga in objects
-                	objects: {
-                        // Maak een nieuwe value aan met de volgende waardes
-                		thisID: {
-                            // Maak een href een link aan
-                			href: function(params) {
-                				//console.log("params: " + params)
-                				return "#/game/" + this.id;
-                			}
-                		},
+                    // Go in objects
+                    objects: {
+                        // Make new value
+                        thisID: {
+                            // Make href
+                            href: function(params) {
+                                return "#/game/" + this.id;
+                            }
+                        },
 
                          date: {
                             text: function(params){
+                                // Get Starttime from JSON Object
                                 var startTime = new Date(this.start_time);
+                                // Get Day the game is played on
                                 var day = startTime.getDate();
+                                // Get the month the game is played in +1 otherwise you'll show one month too early
                                 var month = startTime.getMonth() + 1;
+                                // Get the year the game is played in
                                 var year = startTime.getFullYear();
 
                                 var date = day + "/" + month + "/" + year;
                                 return date;
                             }
                         }
-                	}
+                    }
                 }
 
-
                 SCOREAPP.schedule = result;
-                console.log('Renderen voltooid');
 
-		    	Transparency.render(qwery('[data-route=schedule')[0], SCOREAPP.schedule, directives);
-		    	// Voeg class Loaded toe
-            	d.className =  "loaded";
-			});
+                Transparency.render(qwery('[data-route=schedule')[0], SCOREAPP.schedule, directives);
+                
+                /**** END LOADER ****/
+                console.log("Hide Loader")
+                SCOREAPP.loader.hide();
+            });
 
             // Gestures to navigate
-			var element = document.getElementById('schedulePage');
+            var element = document.getElementById('schedulePage');
             // Swipe left en route naar ranking
-		    var hammertime = Hammer(element).on("swipeleft", function(event) {
-		        routie('/ranking');
-		    });
+            var hammertime = Hammer(element).on("swipeleft", function(event) {
+                routie('/ranking');
+            });
 
-			SCOREAPP.router.change("schedule");
-		},
+            SCOREAPP.router.change("schedule");
+        },
 
-		game: function (id) {
-			console.log("3. PAGE RENDEREN game", id);
-			
-            // Pak Loader en verwijder class Loaded
-            var d = document.getElementById("loader");
-			d.classList.remove('loaded');
+        game: function (id) {
+            console.log("3. Render page game", id);
 
-            // Pak het game ID uit de URL
-			var pakID = window.location.hash.slice(6);
-            // Log het game ID
-			console.log(pakID);
+            // Get game ID form URL
+            var getID = window.location.hash.slice(6);
+            // Log game ID
+            console.log(getID);
 
             // API Request
-			promise.get(SCOREAPP.settings.gameURL + pakID + '/').then(function(error, text, xhr) {
-				if (error) {
-	    	    alert('Error ' + xhr.status);
-	        	return;
-	    	}
-	    	// SCOREAPP.poules zijn de objecten uit je parse
-	    	SCOREAPP.game = JSON.parse(text);
+            promise.get(SCOREAPP.settings.gameURL + getID + '/').then(function(error, text, xhr) {
+                if (error) {
+                alert('Error ' + xhr.status);
+                return;
+            }
+            // SCOREAPP.poules objects from parse
+            SCOREAPP.game = JSON.parse(text);
+
+            // Render in 
+            Transparency.render(qwery('[data-route=game')[0], SCOREAPP.game);
+            console.log("SCOREAPP GAME = ", SCOREAPP.game);
+            // Method name
+            SCOREAPP.router.change("game");
+            
+            /**** END LOADER ****/
+            console.log("Hide Loader")
+            SCOREAPP.loader.hide();
+            });
+
+            // Get HTML element with id Update
+            var el = document.getElementById('update');
+            
+            el.onclick = function () {
+                SCOREAPP.eventListener.gameUpdateListener();
+            }
+        },
+        
+        postData: function(postID, team1Score, team2Score, endScore) {
+                console.log('5. DATA POSTING')
+
+                var type        =  'POST',
+                    url         =  'https://api.leaguevine.com/v1/game_scores/',
+                    postData    = JSON.stringify({
+                        game_id: postID,
+                        team_1_score: team1Score,
+                        team_2_score: team2Score,
+                        is_final: endScore
+                    });
+
+                // Create request
+                var xhr = new XMLHttpRequest();
+
+                // Open request
+                xhr.open(type,url,true);
+
+                // Set request headers
+                xhr.setRequestHeader('Content-type','application/json');
+                xhr.setRequestHeader('Authorization','bearer 82996312dc');
+
+                // XHR State changes
+                xhr.onreadystatechange = function() {
+                    // If xhr readyState == 4 (Succes) do :
+                    if (xhr.readyState==4){
+                        console.log('6. DATA POSTED')
+                        // Get HTML Element with id status
+                        var statusdiv = document.getElementById("status");
+                        console.log(statusdiv);
+                        // Set this text in the variable "statusdiv" (div status)
+                        statusdiv.innerHTML = "Score succesvol doorgevoerd";
+                        // Remove classname
+                        statusdiv.className = "";
+                        // Update data after posting new score
+                        var scoreData = {
+                          team_1_score: team1Score,
+                          team_2_score:  team2Score
+                        };
+
+                        Transparency.render(qwery('[data-route=game')[0], scoreData);
+                        // After timeout remove pop up box and add class hide toe
+                    setTimeout(function(){
+                        statusdiv.className = "hide";
+                    },15000);
 
 
-	    	// Route naar de game sectie
-			Transparency.render(qwery('[data-route=game')[0], SCOREAPP.game);
-			console.log("SCOREAPP GAME = ", SCOREAPP.game);
-			// Method name
-			SCOREAPP.router.change("game");
-			
-			// Voeg class Loaded toe
-            d.className =  "loaded"
-			});
+                  } else {  
+                      //console.log("Error", xhr.statusText);  
+                    }  
+                 }
 
-            // Zoek html element met ID update
-			var el = document.getElementById('update');
-            // Als erop geklikt wordt voer functie PostData uit
-			el.onclick = postData;
+                // Send request (with data as a json string)
+                xhr.send(postData);
+                // Maak de sectie waarop geklikt is actief
 
-            // Post data (Update score)
-			function postData() {
-				console.log('4. DATA WORDT GEPOST')
-				
-                // Zoek element met het ID Loader
-				var d = document.getElementById("loader");
-                // Verwijder de class Loaded
-				d.classList.remove('loaded');
+                return false;
+        }
+    };
 
-                // Pak game ID uit de URL balk
-				var postID = window.location.hash.slice(7);
-				// Haal team 1 score uit de html
-				var e = document.getElementById("team1Score");
-                // Zoek geselecteerde element in de dropdown en neem de text
-				var team1Score = e.options[e.selectedIndex].text;
-				// Haal team 2 score uit de html
-				var k = document.getElementById("team2Score");
-                // Zoek geselecteerde element in de dropdown en neem de text                
-				var team2Score = k.options[k.selectedIndex].text;
+    SCOREAPP.eventListener = {
+        gameUpdateListener: function() {
+            console.log('4. DATA POSTING')
 
-                // Zoek een element met het ID isFinal
-				var checkBox = document.getElementById('isFinal');
-                // Maak variabele met een tekst "False"
-				var eindScore = "False";
-                // Als checkbox is gechecked eindScore == "True"
-				if(checkBox.checked)
-				{
-					eindScore = "True";
-				}
+            // Get game ID from url
+            var postID = window.location.hash.slice(7);
+            // Get team 1 score from html
+            var e = document.getElementById("team1Score");
+            // Search element and select text from selected dropdown item  
+            var team1Score = e.options[e.selectedIndex].text;
+            // Get team 2 score from html
+            var k = document.getElementById("team2Score");
+            // Search element and select text from selected dropdown item                
+            var team2Score = k.options[k.selectedIndex].text;
 
-		    	var type 		=  'POST',
-					url  		=  'https://api.leaguevine.com/v1/game_scores/',
-					postData 	= JSON.stringify({
-						game_id: postID,
-					    team_1_score: team1Score,
-					    team_2_score: team2Score,
-					    is_final: eindScore
-					});
+            // Get element with id "IsFinal"
+            var checkBox = document.getElementById('isFinal');
+            // Make var with string: "False"
+            var endScore = "False";
+            // If checkbox is checked endScore == "True"
+            if(checkBox.checked) {
+                endScore = "True";
+            }
 
-				// Create request
-				var xhr = new XMLHttpRequest();
+            SCOREAPP.page.postData(postID, team1Score, team2Score, endScore);
+        }
+    };
 
-				// Open request
-				xhr.open(type,url,true);
+    SCOREAPP.loader = {
+        show: function () {
+            var d = document.getElementById("loader");
+            d.classList.remove('loaded');
+        },
 
-				// Set request headers
-				xhr.setRequestHeader('Content-type','application/json');
-				xhr.setRequestHeader('Authorization','bearer 82996312dc');
+        hide: function () {
+            var d = document.getElementById("loader");
+            d.className =  "loaded";
+        }
+    };
 
-                // De staat van het xhr verandert
-				xhr.onreadystatechange = function() {
-                    // Als xhr readyState == 4 (Succes) doe dan het volgende
-				    if (xhr.readyState==4){
-                        // Zoek een html element met het id status
-				        var statusdiv = document.getElementById("status");
-				        console.log(statusdiv);
-                        // Voeg deze tekst toe aan het variabele statusdiv oftewel div Status
-					    statusdiv.innerHTML = "Score succesvol doorgevoerd";
-                        // Haal className weg
-					    statusdiv.className = "";
-                        // Update data meteen met de variabeles die gepost worden
-						var scoreData = {
-						  team_1_score: team1Score,
-						  team_2_score:  team2Score
-						};
+    
 
-						Transparency.render(qwery('[data-route=game')[0], scoreData);
-                        // Na timeout verwijder pop up box voeg class hide toe
-					setTimeout(function(){
-						statusdiv.className = "hide";
-					},15000);
-
-
-				  } else {  
-				      //console.log("Error", xhr.statusText);  
-				    }  
-				 }
-
-				// Send request (with data as a json string)
-				xhr.send(postData);
-				// Maak de sectie waarop geklikt is actief
-          		  d.className =  "loaded";
-          		return false;
-    		}
-
-		}
-
-	}
 
     /**
      * requestAnimationFrame and cancel polyfill
      */
-        var lastTime = 0;
-        var vendors = ['ms', 'moz', 'webkit', 'o'];
-        for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-            window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
-            window.cancelAnimationFrame =
-                    window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
-        }
+    var lastTime = 0;
+    var vendors = ['ms', 'moz', 'webkit', 'o'];
+    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+        window.cancelAnimationFrame =
+                window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
+    }
 
-        if (!window.requestAnimationFrame)
-            window.requestAnimationFrame = function(callback, element) {
-                var currTime = new Date().getTime();
-                var timeToCall = Math.max(0, 16 - (currTime - lastTime));
-                var id = window.setTimeout(function() { callback(currTime + timeToCall); },
-                        timeToCall);
-                lastTime = currTime + timeToCall;
-                return id;
-            };
+    if (!window.requestAnimationFrame)
+        window.requestAnimationFrame = function(callback, element) {
+            var currTime = new Date().getTime();
+            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+            var id = window.setTimeout(function() { callback(currTime + timeToCall); },
+                    timeToCall);
+            lastTime = currTime + timeToCall;
+            return id;
+        };
 
-        if (!window.cancelAnimationFrame)
-            window.cancelAnimationFrame = function(id) {
-                clearTimeout(id);
-            };
-
+    if (!window.cancelAnimationFrame)
+        window.cancelAnimationFrame = function(id) {
+            clearTimeout(id);
+        };
 
     /**
      * pull to refresh
@@ -568,24 +571,24 @@ var SCOREAPP = SCOREAPP || {};
     };
 
     function refreshPage() {
-    	var locatie = window.location.hash.slice(2);
-    	console.log(locatie);
+        var locatie = window.location.hash.slice(2);
+        console.log(locatie);
 
-    	switch(locatie)
-			{
-			case 'schedule':
-			  SCOREAPP.page.schedule();
-			  break;
-			case 'ranking':
-			  SCOREAPP.page.ranking();
-			  break;
-			}
+        switch(locatie)
+            {
+            case 'schedule':
+              SCOREAPP.page.schedule();
+              break;
+            case 'ranking':
+              SCOREAPP.page.ranking();
+              break;
+            }
     }
-	// DOM ready
-	// Gebruik om de app te initialiseren wanneer DOM = ready
-	domready(function () {
-		// Zorg ervoor dat de app gaat starten
-		SCOREAPP.controller.init();
-	});
-	
+    // DOM ready
+    // Gebruik om de app te initialiseren wanneer DOM = ready
+    domready(function () {
+        // Zorg ervoor dat de app gaat starten
+        SCOREAPP.controller.init();
+    });
+    
 })();
