@@ -309,6 +309,11 @@ var SCOREAPP = SCOREAPP || {};
         gameUpdateListener: function() {
             console.log('4. DATA POSTING')
 
+            
+            console.log("Activate Loader");
+            SCOREAPP.loader.show();
+
+
             // Get game ID from url
             var postID = window.location.hash.slice(7);
             // Get team 1 score from html
