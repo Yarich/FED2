@@ -241,7 +241,8 @@ var SCOREAPP = SCOREAPP || {};
             var el = document.getElementById('update');
             
             el.onclick = function () {
-                SCOREAPP.eventListener.gameUpdateListener();
+            SCOREAPP.eventListener.gameUpdateListener();
+            
             }
         },
         
@@ -289,7 +290,11 @@ var SCOREAPP = SCOREAPP || {};
                         // After timeout remove pop up box and add class hide toe
                     setTimeout(function(){
                         statusdiv.className = "hide";
-                    },15000);
+                    },2000);
+
+                                /**** END LOADER ****/
+                        console.log("Hide Loader")
+                        SCOREAPP.loader.hide();
 
 
                   } else {  
@@ -309,7 +314,7 @@ var SCOREAPP = SCOREAPP || {};
         gameUpdateListener: function() {
             console.log('4. DATA POSTING')
 
-            
+
             console.log("Activate Loader");
             SCOREAPP.loader.show();
 

@@ -1,15 +1,12 @@
-/* General styles, mobile first */
- {
-	box-sizing:border-box;
-}
-
 body {
 	font-size:100%;
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
 	font-weight: 300;
 	color:#333;
 	background-color: #fff;
+    overflow-x: hidden !important;
 }
+
 h1 {
 	
 }
@@ -35,9 +32,6 @@ figcaption {
 }
 
 /* header section */
-position:relative;
-	padding:0 .5em;
-}
 	header img {
 		opacity:.3;
 		width:50px;
@@ -55,11 +49,8 @@ position:relative;
 	}
 .navbar-nav li.activelink a{
 	background:#333;
-	color:#fff;
+	color:#fff !important;
 }
-
-
-
 /* Content section */
 article#content {
 	max-width: 98% !important;
@@ -111,141 +102,141 @@ tr#btnColor {
 	display:none;
 }
 
-        body { padding: 0; }
-
-            /* pull down is a translate3d y position */
-        #container {
-            position: relative;
-            padding: 20px;
-            -webkit-transition: -webkit-transform 0ms;
-            transform: translate3d(0,0,0) scale3d(1,1,1);
-            -o-transform: translate3d(0,0,0) scale3d(1,1,1);
-            -ms-transform: translate3d(0,0,0) scale3d(1,1,1);
-            -moz-transform: translate3d(0,0,0) scale3d(1,1,1);
-            -webkit-transform: translate3d(0,0,0) scale3d(1,1,1);
-            -webkit-backface-visibility: hidden;
-        }
-
-            /* slide up with small animation */
-        #container.pullrefresh-slideup,
-        #container.pullrefresh-loading {
-            -o-transition: -o-transform .3s;
-            -ms-transition: -ms-transform .3s;
-            -moz-transition: -moz-transform .3s;
-            -webkit-transition: -webkit-transform .3s;
-        }
-
-            /* place the pullrefresh box above the container */
-        #pullrefresh {
-            display: block;
-            overflow: hidden;
-            position: absolute;
-            top: -490px;
-            left: 0;
-            width: 100%;
-            height: 490px;
-            background: #ccc;
-            box-shadow: 0 -5px 10px #bbb inset;
-        }
-
-        #pullrefresh .message {
-            position: absolute;
-            left: 0;
-            bottom: 20px;
-            right: 0;
-            color: #777;
-            text-align: center;
-            text-shadow: 1px 1px 0 #dfdfdf;
-            font-weight: bold;
-        }
-
-            /* change message with css */
-        #pullrefresh .message span:after { content: "Pull to refresh..."; }
-        .pullrefresh-breakpoint #pullrefresh .message span:after { content: "Release to refresh..."; }
-        .pullrefresh-loading #pullrefresh .message span:after { content: "Refreshing page..."; }
 
 
-            /* icon */
-        #pullrefresh .icon {
-            position: absolute;
-            left: 20px;
-        }
+    /* pull down is a translate3d y position */
+#container {
+    position: relative;
+    padding: 20px;
+    -webkit-transition: -webkit-transform 0ms;
+    transform: translate3d(0,0,0) scale3d(1,1,1);
+    -o-transform: translate3d(0,0,0) scale3d(1,1,1);
+    -ms-transform: translate3d(0,0,0) scale3d(1,1,1);
+    -moz-transform: translate3d(0,0,0) scale3d(1,1,1);
+    -webkit-transform: translate3d(0,0,0) scale3d(1,1,1);
+    -webkit-backface-visibility: hidden;
+}
 
-            /* arrow icon */
-        #pullrefresh .icon.arrow {
-            background: url(assets/img/arrow.png) no-repeat;
-            width: 71px;
-            height: 28px;
-            bottom: 10px;
+    /* slide up with small animation */
+#container.pullrefresh-slideup,
+#container.pullrefresh-loading {
+    -o-transition: -o-transform .3s;
+    -ms-transition: -ms-transform .3s;
+    -moz-transition: -moz-transform .3s;
+    -webkit-transition: -webkit-transform .3s;
+}
 
-            transform: rotate(90deg);
-            transition: transform .3s;
-            -o-transform: rotate(90deg);
-            -o-transition: -o-transform .3s;
-            -ms-transform: rotate(90deg);
-            -ms-transition: -ms-transform .3s;
-            -moz-transform: rotate(90deg);
-            -moz-transition: -moz-transform .3s;
-            -webkit-transform: rotate(90deg);
-            -webkit-transition: -webkit-transform .3s;
-            -webkit-backface-visibility: hidden;
-        }
+    /* place the pullrefresh box above the container */
+#pullrefresh {
+    display: block;
+    overflow: hidden;
+    position: absolute;
+    top: -490px;
+    left: 0;
+    width: 100%;
+    height: 490px;
+    background: #ccc;
+    box-shadow: 0 -5px 10px #bbb inset;
+}
 
-        #pullrefresh .icon.arrow.arrow-up {
-            transform: rotate(-90deg);
-            -o-transform: rotate(-90deg);
-            -ms-transform: rotate(-90deg);
-            -moz-transform: rotate(-90deg);
-            -webkit-transform: rotate(-90deg);
-        }
+#pullrefresh .message {
+    position: absolute;
+    left: 0;
+    bottom: 20px;
+    right: 0;
+    color: #777;
+    text-align: center;
+    text-shadow: 1px 1px 0 #dfdfdf;
+    font-weight: bold;
+}
 
-            /* spinner icon */
-            /* rotate spinner with css animation */
-        @keyframes rotate{ 0%{ transform: rotate(0deg); } 100%{ transform: rotate(360deg); } }
-        @-o-keyframes rotate{ 0%{ -o-transform: rotate(0deg); } 100%{ -o-transform: rotate(360deg); } }
-        @-ms-keyframes rotate{ 0%{ -ms-transform: rotate(0deg); } 100%{ -ms-transform: rotate(360deg); } }
-        @-moz-keyframes rotate{ 0%{ -moz-transform: rotate(0deg); } 100%{ -moz-transform: rotate(360deg); } }
-        @-webkit-keyframes rotate{ 0%{ -webkit-transform: rotate(0deg); } 100%{ -webkit-transform: rotate(360deg); } }
+    /* change message with css */
+#pullrefresh .message span:after { content: "Pull to refresh..."; }
+.pullrefresh-breakpoint #pullrefresh .message span:after { content: "Release to refresh..."; }
+.pullrefresh-loading #pullrefresh .message span:after { content: "Refreshing page..."; }
 
-        #pullrefresh .icon.loading,
-        #loader .loadericon {
-            background: url(assets/img/spinner.png) no-repeat;
-            width: 19px;
-            height: 19px;
-            background-size: 100%;
-            bottom: 0;
 
-            animation: rotate 1s linear infinite;
-            -o-animation: rotate 1s linear infinite;
-            -ms-animation: rotate 1s linear infinite;
-            -moz-animation: rotate 1s linear infinite;
-            -webkit-animation: rotate 1s linear infinite;
-        }
+    /* icon */
+#pullrefresh .icon {
+    position: absolute;
+    left: 20px;
+}
 
-        #loader .loadericon {
-        	float: left;
-        	margin-right: 5px;
-        }
+    /* arrow icon */
+#pullrefresh .icon.arrow {
+    background: url(assets/img/arrow.png) no-repeat;
+    width: 71px;
+    height: 28px;
+    bottom: 10px;
 
-        #status {
-			/*border: 2px red solid;*/
+    transform: rotate(90deg);
+    transition: transform .3s;
+    -o-transform: rotate(90deg);
+    -o-transition: -o-transform .3s;
+    -ms-transform: rotate(90deg);
+    -ms-transition: -ms-transform .3s;
+    -moz-transform: rotate(90deg);
+    -moz-transition: -moz-transform .3s;
+    -webkit-transform: rotate(90deg);
+    -webkit-transition: -webkit-transform .3s;
+    -webkit-backface-visibility: hidden;
+}
 
-			position: fixed;
-			width: 100%;
-			top: 0;
-			left: 0;
-			padding: 15px;
-			background-color: green;
-			color: white;
-			text-align: center;
-			opacity: 0;
-			-webkit-animation: fadein 2s; /* Safari and Chrome */
+#pullrefresh .icon.arrow.arrow-up {
+    transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+}
+
+    /* spinner icon */
+    /* rotate spinner with css animation */
+@keyframes rotate{ 0%{ transform: rotate(0deg); } 100%{ transform: rotate(360deg); } }
+@-o-keyframes rotate{ 0%{ -o-transform: rotate(0deg); } 100%{ -o-transform: rotate(360deg); } }
+@-ms-keyframes rotate{ 0%{ -ms-transform: rotate(0deg); } 100%{ -ms-transform: rotate(360deg); } }
+@-moz-keyframes rotate{ 0%{ -moz-transform: rotate(0deg); } 100%{ -moz-transform: rotate(360deg); } }
+@-webkit-keyframes rotate{ 0%{ -webkit-transform: rotate(0deg); } 100%{ -webkit-transform: rotate(360deg); } }
+
+#pullrefresh .icon.loading,
+#loader .loadericon {
+    background: url(assets/img/spinner.png) no-repeat;
+    width: 19px;
+    height: 19px;
+    background-size: 100%;
+    bottom: 0;
+
+    animation: rotate 1s linear infinite;
+    -o-animation: rotate 1s linear infinite;
+    -ms-animation: rotate 1s linear infinite;
+    -moz-animation: rotate 1s linear infinite;
+    -webkit-animation: rotate 1s linear infinite;
+}
+
+#loader .loadericon {
+	float: left;
+	margin-right: 5px;
+}
+
+#status {
+	/*border: 2px red solid;*/
+
+	position: fixed;
+	width: 100%;
+	top: 0;
+	left: 0;
+	padding: 15px;
+	background-color: green;
+	color: white;
+	text-align: center;
+	opacity: 0;
+	-webkit-animation: fadein 2s; /* Safari and Chrome */
     -moz-animation: fadein 2s; /* Firefox */
     -ms-animation: fadein 2s; /* Internet Explorer */
     -o-animation: fadein 2s; /* Opera */
     animation: fadein 2s;
 
-		}
+}
 
 .loaded{
 	display: none;
